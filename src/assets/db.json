@@ -1,0 +1,53 @@
+[
+    {
+        "id": 1,
+        "company_name": "Real Solutions",
+        "department_name": "IT",
+        "billings": [
+            {
+                "id": 1,
+                "expense": "Hardware renewal",
+                "amount": "25000.00",
+                "payment_date": "2017-12-16",
+                "pay_status": "Unpaid",
+                "days_remaining": "1.0"
+            }
+        ],
+        "date_created": "2017-12-12T23:48:07.585305Z",
+        "date_modified": "2017-12-13T00:05:49.242770Z"
+    },
+    {
+        "id": 2,
+        "company_name": "Real Solutions",
+        "department_name": "MARCOM",
+        "billings": [
+            {
+                "id": 2,
+                "expense": "Marketing",
+                "amount": "15000.00",
+                "payment_date": "2017-12-17",
+                "pay_status": "Pending",
+                "days_remaining": "2.0"
+            }
+        ],
+        "date_created": "2017-12-13T00:06:16.804944Z",
+        "date_modified": "2017-12-13T00:06:16.804981Z"
+    },
+    {
+        "id": 3,
+        "company_name": "Merojob",
+        "department_name": "HR",
+        "billings": [
+            {
+                "id": 3,
+                "expense": "Salary",
+                "amount": "250000.00",
+                "payment_date": "2017-12-26",
+                "pay_status": "Unpaid",
+                "days_remaining": "11.0"
+            }
+        ],
+        "date_created": "2017-12-13T05:56:27.256481Z",
+        "date_modified": "2017-12-13T05:56:27.256529Z"
+    }
+]
