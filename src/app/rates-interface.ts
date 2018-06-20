@@ -1,4 +1,7 @@
-export interface RatesInterface {
-    quotes: string;
+
+export class RatesInterface {
+      USDAED: number;
+      USDAFN: number;
+      USDALL: number;
     
 }

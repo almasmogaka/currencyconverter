@@ -1,0 +1,33 @@
+ html {
+    font-family: 'Lato', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+.wrapper {
+    border: 1px solid red;
+    background-color: grey;
+    width: 700px;
+    height: 400px;
+    margin: 20px auto;
+    padding: 20px;
+}
+.text {
+    text-align: center;
+    padding: 1px;
+
+}
+table tr td{
+    margin: 100px;
+}
+.result {
+    margin-top: 50px;
+    margin-left: 20px;
+}
+.box {
+    margin: 20px auto;
+    width: 500px;
+    height: 400px;
+    padding: 20px;
+    border: 1px solid red;
+}
+

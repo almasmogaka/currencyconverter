@@ -1,5 +1,59 @@
+<div class="wrapper">
+    <h4 class="text">CURRENCY CONVERSION APPLICATION</h4>
 
-<ul>    
-    {{currenciesdata| json}}   
-  
-</ul>
+    <div class="error" style="color: red; font-weight: bold;" *ngIf="error">Error: {{ this.error }}</div>
+
+
+    <table class="table">
+        <tr>
+            <td>
+                <label for="from">Convert From:</label>
+            </td>
+
+            <td>
+                <label for="to">To:</label>
+            </td>
+
+
+        </tr>
+        <tr>
+            <td>
+                <select class="form-control" id="fromCurrency" [(ngModel)]="fromCurrency" (ngModelChange)="calculate(false, false)">
+                    <option *ngFor="let quote of quotes" [value]="quote.id">{{ quote.id }}</option>
+                </select>
+            </td>
+            <td>
+                <select class="form-control" id="toCurrency" [(ngModel)]="toCurrency " (ngModelChange)="calculate(true)">
+                    <option *ngFor="let quote of quotes" [value]="quote.id">{{ quote.id }}</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+
+            <td>
+                <input class="form-control" id="from-amount" type="number" [(ngModel)]="fromAmount" (ngModelChange)='calculate(false)'>
+            </td>
+            <td>
+
+                <input class="form-control" id="to-amount" type="number" [(ngModel)]="toAmount" (ngModelChange)="calculate(true)" disabled>
+            </td>
+
+        </tr>
+        <tr>
+            <td>
+                <mat-form-field>
+                    <input matInput [matDatepicker]="picker" placeholder="Choose date" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </td>
+        </tr>
+    </table>
+
+    <!-- <div *ngIf="dates">
+        <div *ngFor="let date of object(dates)">
+            {{date}}
+        </div>
+
+    </div> -->
+</div>
