@@ -8,7 +8,9 @@ describe('Data service', () => {
         
         TestBed.configureTestingModule({ 
             imports: [HttpModule],
-             providers: [DataService] 
+             providers: [DataService,
+            
+            ] 
             });
     });
     it('It should return 1 when getNumber is called', () => {

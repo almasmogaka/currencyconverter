@@ -21,6 +21,7 @@ export const MY_FORMATS = {
     ],
 })
 export class AppComponent implements OnInit {
+    title = "CURRENCY CONVERSION APPLICATION";
     error: any = null;
     fromAmount: number = 10;
     toAmount: number = 0;
@@ -30,6 +31,7 @@ export class AppComponent implements OnInit {
     fromRates: Object = {};
     dates: any = new Date();
     object = Object.keys;
+    planModel: any = {start_time: new Date() };
     constructor(private dataService: DataService) { }
 
     ngOnInit() {
@@ -50,7 +52,7 @@ export class AppComponent implements OnInit {
 
         if (!this.error) {
             if (reverse) {
-                this.fromAmount = (this.toAmount / this.fromRates[this.toCurrency] * 100)/ 100;
+                this.toAmount = (this.toAmount / this.fromRates[this.toCurrency] * 100)/ 100;
             } else {
                 this.toAmount = (this.fromAmount/this.fromRates[this.fromCurrency] * this.fromRates[this.toCurrency] * 100)/ 100;
 

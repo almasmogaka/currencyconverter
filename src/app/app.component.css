@@ -4,24 +4,24 @@
     padding: 0;
 }
 .wrapper {
-    border: 1px solid red;
-    background-color: grey;
-    width: 700px;
-    height: 400px;
+    border: 1px;
+    background-color: whitesmoke;
+    width: 1000px;
+    height: 960px;
     margin: 20px auto;
     padding: 20px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.6); -moz-box-shadow: 0 0 10px rgba(0,0,0,0.6); -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.6); -o-box-shadow: 0 0 10px rgba(0,0,0,0.6);
 }
 .text {
     text-align: center;
     padding: 1px;
+    color: white;
+    text-shadow: 2px 2px 4px #000000;
+    font-size: 40px;
 
 }
 table tr td{
     margin: 100px;
-}
-.result {
-    margin-top: 50px;
-    margin-left: 20px;
 }
 .box {
     margin: 20px auto;
@@ -30,4 +30,17 @@ table tr td{
     padding: 20px;
     border: 1px solid red;
 }
+.ang-date {
+    text-emphasis-color: black;
+    text-align: end;
+    background-color: bisque;
+}
+.td-text {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 30px;
+}
+.inputdate {
+    text-align: center;
+}
+
 
