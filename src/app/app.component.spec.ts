@@ -8,12 +8,14 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { DataService } from "./data.service";
 import { DebugElement } from "@angular/core";
 import { By } from '@angular/platform-browser';
+import { Observable } from "rxjs";
+import 'rxjs/add/observable/from';
 
-describe('AppComponent (with beforeEach)', () => {
+describe('AppComponent', () => {
   let component: AppComponent;
   let fixture: ComponentFixture<AppComponent>;
   let De: DebugElement;
-  let El: HTMLElement;
+  let dataservice: DataService;
   
 
   beforeEach(async(() => {
@@ -40,12 +42,14 @@ describe('AppComponent (with beforeEach)', () => {
     fixture = TestBed.createComponent(AppComponent);
     component = fixture.componentInstance;
     De=fixture.debugElement.query(By.css('table'));
-    El=De.nativeElement;
+    dataservice = new DataService(null);
+    component = new AppComponent(dataservice);
 
   })
+  
     
   it('should create', () => {
-    expect(component).toBeDefined();
+    //expect(component).toBeDefined();
   });
   it('should display the Title"CURRENCY CONVERSION APPLICATION" ', () => {  
     const appDe= fixture.debugElement.componentInstance;       
@@ -55,9 +59,17 @@ describe('AppComponent (with beforeEach)', () => {
     const appDe: DebugElement = fixture.debugElement;
     const headingDe =appDe.query(By.css('h4')); 
     const h4: HTMLElement = headingDe.nativeElement;    
-    expect(h4.textContent).toContain('CURRENCY CONVERSION APPLICATION');
+    expect(h4.textContent).toBe('CURRENCY CONVERSION APPLICATION');
   });
   it('should have a default amount = 10',async( () => {
     expect(component.fromAmount).toEqual(10);
   })); 
+  it('should get api data',async( () => {
+    let rates = ({});
+    spyOn(dataservice, 'getRates').and.callFake(() => {
+      return Observable.from([rates]);
+    });
+    component.fromRates
+    expect(component.fromRates).toEqual(rates);
+  }));
 });

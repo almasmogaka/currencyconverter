@@ -29,8 +29,7 @@ export class AppComponent implements OnInit {
     toCurrency: string = null;
     quotes: Array<any> = [];
     fromRates: Object = {};
-    dates: any = new Date();
-    object = Object.keys;
+    dates: any = new Date();   
     planModel: any = {start_time: new Date() };
     constructor(private dataService: DataService) { }
 
@@ -65,7 +64,7 @@ export class AppComponent implements OnInit {
             if (initial) {
                 const items: Array<any> = this.parseData(quotes);
                 this.quotes = items;
-                this.fromCurrency = this.quotes[29].id;
+                this.fromCurrency = this.quotes[74].id;
                 this.toCurrency = this.quotes[10].id;
                 this.convert(false, false);
             }

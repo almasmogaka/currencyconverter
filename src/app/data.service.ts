@@ -16,8 +16,8 @@ export class DataService {
   
   public getRates(source): Observable<any> {
     const url = `${this.serverUrl}/live`;
-    const url2 = `${this.serverUrl2}/latest`;
-    return this.http.get(url2, { params: { access_key: this.apiKey2 } }).pipe(
+    const url2 = `${this.serverUrl}/latest`;
+    return this.http.get(url, { params: { access_key: this.apiKey } }).pipe(
       map((response: Response) => {
         return <any>response.json();
       }))
@@ -26,7 +26,7 @@ export class DataService {
   public getHistoricalRates(date: string) {
     const url = `${this.serverUrl}/historical`;
     const url2 = `${this.serverUrl2}/2013-12-24`;
-    return this.http.get(url2, { params: { access_key: this.apiKey2, date: date } }).pipe(
+    return this.http.get(url, { params: { access_key: this.apiKey, date: date } }).pipe(
       map((res: Response) => {
         return <any>res.json();
       }))
