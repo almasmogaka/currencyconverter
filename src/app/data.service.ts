@@ -3,20 +3,15 @@ import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { RatesInterface } from './rates-interface';
-
 @Injectable()
 export class DataService {
 
   constructor(private http: Http) { }
-  private apiKey = "ac7638591d8491c0dac63f3f5aa3c750";
-  private apiKey2 = "0622e72efb6f80aafdf7dacb782fc243";
+  private apiKey = "3aa3c5baaaa8d01dbe2618947b7d2ffd";
   private serverUrl = "http://www.apilayer.net/api";
-  private serverUrl2 = "http://data.fixer.io/api";
   
   public getRates(source): Observable<any> {
     const url = `${this.serverUrl}/live`;
-    const url2 = `${this.serverUrl}/latest`;
     return this.http.get(url, { params: { access_key: this.apiKey } }).pipe(
       map((response: Response) => {
         return <any>response.json();
@@ -25,8 +20,14 @@ export class DataService {
 
   public getHistoricalRates(date: string) {
     const url = `${this.serverUrl}/historical`;
-    const url2 = `${this.serverUrl2}/2013-12-24`;
     return this.http.get(url, { params: { access_key: this.apiKey, date: date } }).pipe(
+      map((res: Response) => {
+        return <any>res.json();
+      }))
+  }
+  public getlist() {
+    const url = `${this.serverUrl}/list`;
+    return this.http.get(url, { params: { access_key: this.apiKey } }).pipe(
       map((res: Response) => {
         return <any>res.json();
       }))

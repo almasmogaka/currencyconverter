@@ -10,6 +10,7 @@ import { DebugElement } from "@angular/core";
 import { By } from '@angular/platform-browser';
 import { Observable } from "rxjs";
 import 'rxjs/add/observable/from';
+import { now } from "moment";
 
 describe('AppComponent', () => {
   let component: AppComponent;
@@ -64,7 +65,7 @@ describe('AppComponent', () => {
   it('should have a default amount = 10',async( () => {
     expect(component.fromAmount).toEqual(10);
   })); 
-  it('should get api data',async( () => {
+  it('should get Object Api data',async( () => {
     let rates = ({});
     spyOn(dataservice, 'getRates').and.callFake(() => {
       return Observable.from([rates]);
@@ -72,4 +73,27 @@ describe('AppComponent', () => {
     component.fromRates
     expect(component.fromRates).toEqual(rates);
   }));
+  it('should get quotes in form of array[]',async( () => {
+    let quotes = [];
+    spyOn(dataservice, 'getRates').and.callFake(() => {
+      return Observable.from([quotes]);
+    });
+    component.quotes
+    expect(component.quotes).toEqual(quotes);
+  }));
+  it('should display current date onload the UI', function() {
+    var today = new Date(now());
+    jasmine.clock().mockDate(today);
+    expect(new Date().valueOf()).toEqual(today.valueOf());    
+}); 
+it('should have the Currency I Have title', async()=> {  
+   const de = fixture.debugElement.query(By.css('table tr td'));
+   const content = de.nativeElement;
+   console.log(de.nativeElement.textContent);
+   expect(content.textContent).toContain('Currency I Have:');
+  });
+  it('should have currency I Have initialized to null',async( () => {   
+    expect(component.fromCurrency).toEqual(null);
+  }));
+
 });

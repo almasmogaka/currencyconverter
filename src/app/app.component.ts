@@ -29,17 +29,20 @@ export class AppComponent implements OnInit {
     toCurrency: string = null;
     quotes: Array<any> = [];
     fromRates: Object = {};
-    dates: any = new Date();   
+    dates: any = new Date();
+       
     planModel: any = {start_time: new Date() };
+
     constructor(private dataService: DataService) { }
 
     ngOnInit() {
         this.convert(false, true);
     }
-
+    
+    
     public convert(reverse, initial) {
-        this.dataService.getRates(this.fromCurrency).subscribe(response => {
-            this.prepareRates(response.quotes, reverse, initial);
+        this.dataService.getRates(this.fromRates).subscribe(response => {
+            this.prepareRates(response.quotes, reverse, initial);            
 
         }, (error) => {
             this.error = 'There was an error: ' + error.status + ' - ' + error.statusText;
@@ -51,27 +54,28 @@ export class AppComponent implements OnInit {
 
         if (!this.error) {
             if (reverse) {
-                this.toAmount = (this.toAmount / this.fromRates[this.toCurrency] * 100)/ 100;
+                this.toAmount = (this.fromAmount/this.fromRates[this.fromCurrency] * this.fromRates[this.toCurrency] * 100)/ 100;
             } else {
                 this.toAmount = (this.fromAmount/this.fromRates[this.fromCurrency] * this.fromRates[this.toCurrency] * 100)/ 100;
 
             }
+            
         }
     }
 
-    prepareRates(quotes, reverse, initial) {
-        if (quotes) {
+    prepareRates(rates, reverse, initial) {
+        if (rates) {
             if (initial) {
-                const items: Array<any> = this.parseData(quotes);
+                const items: Array<any> = this.parseData(rates);
                 this.quotes = items;
                 this.fromCurrency = this.quotes[74].id;
                 this.toCurrency = this.quotes[10].id;
                 this.convert(false, false);
             }
+            
+            this.fromRates = rates;
 
-            this.fromRates = quotes;
-
-            this.calculate(reverse);
+            this.calculate(reverse);            
 
         } else {
             this.error = 'Unable to get data from API';
@@ -109,7 +113,7 @@ export class AppComponent implements OnInit {
 
         if (this.toCurrency === this.fromCurrency) {
             this.fromAmount = this.toAmount;
-            this.error = 'Converting ' + this.toCurrency + ' to ' + this.fromCurrency + ' doesn\'t make much sense, does it?';
+            this.error = 'Converting ' + this.toCurrency + ' to ' + this.fromCurrency + ' isn\'t applicaple' ;
             return;
         }
     }
@@ -118,12 +122,16 @@ export class AppComponent implements OnInit {
             this.dates = this.formatDate(event.value);
             this.dataService.getHistoricalRates(this.dates).subscribe(response => {
                 this.prepareRates(response.quotes, false, true);
+                 
     
             }, (error) => {
                 this.error = 'There was an error: ' + error.status + ' - ' + error.statusText;
             });
         
         }
+
+    }
+    list() {
 
     }
    
