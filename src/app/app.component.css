@@ -43,5 +43,15 @@ table tr td{
 .inputdate {
     text-align: center;
 }
+.left {
+    text-align: left;
+}
+span.quot {
+    text-align: right;
+    float: right;
+}
+.right-curr {
+    margin-top: 0px;
+}
 
 

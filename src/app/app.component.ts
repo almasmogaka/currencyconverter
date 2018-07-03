@@ -23,118 +23,110 @@ export const MY_FORMATS = {
 export class AppComponent implements OnInit {
     title = "CURRENCY CONVERSION APPLICATION";
     error: any = null;
-    fromAmount: number = 10;
-    toAmount: number = 0;
+    fromAmount: number = 1;
+    toAmount: any = 0;
     fromCurrency: string = null;
     toCurrency: string = null;
     quotes: Array<any> = [];
     fromRates: Object = {};
     dates: any = new Date();
-       
-    planModel: any = {start_time: new Date() };
+    currencies: Array<any> =[];
+    
+
+    planModel: any = { start_time: new Date() };
 
     constructor(private dataService: DataService) { }
 
     ngOnInit() {
-        this.convert(false, true);
+        this.convert(); 
+        this.getcurrencies();       
     }
-    
-    
-    public convert(reverse, initial) {
-        this.dataService.getRates(this.fromRates).subscribe(response => {
-            this.prepareRates(response.quotes, reverse, initial);            
+
+    convert() {
+        this.dataService.getRates().subscribe(response => {
+            this.prepareRates(response.quotes);
 
         }, (error) => {
             this.error = 'There was an error: ' + error.status + ' - ' + error.statusText;
         });
+
     }
-
-    public calculate(reverse) {
-        this.handleErrors();
-
-        if (!this.error) {
-            if (reverse) {
-                this.toAmount = (this.fromAmount/this.fromRates[this.fromCurrency] * this.fromRates[this.toCurrency] * 100)/ 100;
-            } else {
-                this.toAmount = (this.fromAmount/this.fromRates[this.fromCurrency] * this.fromRates[this.toCurrency] * 100)/ 100;
-
-            }
-            
-        }
+    getcurrencies() {
+        this.dataService.getCurrencies().
+                subscribe(data => {
+                    if(data['currencies']) {
+                        const items: Array<any> = this.parseData(data['currencies']);
+                        this.currencies = items;
+                        console.log(data['currencies'])
+                    }
+                    
+                })
     }
-
-    prepareRates(rates, reverse, initial) {
-        if (rates) {
-            if (initial) {
-                const items: Array<any> = this.parseData(rates);
-                this.quotes = items;
-                this.fromCurrency = this.quotes[74].id;
-                this.toCurrency = this.quotes[10].id;
-                this.convert(false, false);
-            }
-            
-            this.fromRates = rates;
-
-            this.calculate(reverse);            
-
-        } else {
-            this.error = 'Unable to get data from API';
-        }
-    }
-
     private parseData(data) {
         const arr: Array<any> = [];
-
         for (const key in data) {
             if (key) {
                 const obj = {
                     id: key,
                     value: data[key]
                 };
-                arr.push(obj);
-            }
+                arr.push(obj);               
+            }            
         }
-
-        return arr;
+        return arr;        
     }
+    calculate() {
+        this.handleErrors();
+        if (!this.error) {
+            this.toAmount = ((this.fromAmount / this.fromRates[this.fromCurrency] * this.fromRates[this.toCurrency] * 100) / 100).toFixed(2);
+        }       
+    }
+    prepareRates(rates) {
+        if (rates) {
+            const items: Array<any> = this.parseData(rates);            
+            this.quotes = items;            
+            this.fromRates = rates;
 
+            this.calculate();
+        } else {
+            this.error = 'Unable to get data from API';
+        }
+    }
     private handleErrors() {
         this.error = null;
 
-        if (!this.fromAmount && !this.toAmount) {
+        if (!this.fromAmount) {
             this.error = 'Please enter the amount';
-            return;
+            
         }
 
         if (!this.fromCurrency) {
-            this.error = 'Please set currency';
-            return;
+            this.fromCurrency = this.quotes[0].id;           
+            
+        }
+        if (!this.toCurrency) {
+            this.toCurrency = this.quotes[74].id;           
+            
         }
 
         if (this.toCurrency === this.fromCurrency) {
             this.fromAmount = this.toAmount;
-            this.error = 'Converting ' + this.toCurrency + ' to ' + this.fromCurrency + ' isn\'t applicaple' ;
-            return;
+            this.error = 'Converting ' + this.toCurrency + ' to ' + this.fromCurrency + ' isn\'t applicaple';
+            
         }
     }
-    addEvent(event: MatDatepickerInputEvent<Date>) {
+    addEvent(event: MatDatepickerInputEvent<Date>) {        
         if (event.value) {
             this.dates = this.formatDate(event.value);
             this.dataService.getHistoricalRates(this.dates).subscribe(response => {
-                this.prepareRates(response.quotes, false, true);
-                 
-    
+                this.prepareRates(response['quotes']);
+
             }, (error) => {
                 this.error = 'There was an error: ' + error.status + ' - ' + error.statusText;
             });
-        
         }
-
     }
-    list() {
 
-    }
-   
     formatDate(date) {
         var d = new Date(date),
             month = '' + (d.getMonth() + 1),

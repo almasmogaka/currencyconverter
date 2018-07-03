@@ -1,7 +1,6 @@
 import { AppComponent } from "./app.component";
 import { TestBed, ComponentFixture, ComponentFixtureAutoDetect, async } from "@angular/core/testing";
 import { BrowserModule } from "@angular/platform-browser";
-import { FormsModule } from "@angular/forms";
 import { MatFormFieldModule, MatInputModule, MatDatepickerModule, MatRippleModule, MatNativeDateModule } from "@angular/material";
 import { HttpModule } from "@angular/http";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
@@ -29,7 +28,6 @@ describe('AppComponent', () => {
         MatFormFieldModule,
         HttpModule,
         MatInputModule,
-        FormsModule,
         BrowserAnimationsModule,
         MatRippleModule, 
         MatDatepickerModule,

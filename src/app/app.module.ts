@@ -1,10 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { MatFormFieldModule } from '@angular/material';
 import { MatInputModule } from '@angular/material';
+import { StringPipesModule } from 'ngx-custom-pipes'
 import {MatButtonModule, MatCheckboxModule} from '@angular/material';
 import { MatRippleModule, MatDatepickerModule, MatNativeDateModule } from '@angular/material';
 
@@ -19,13 +20,14 @@ import { DataService } from './data.service';
   imports: [
     BrowserModule,
     MatFormFieldModule,
-    HttpModule,
+    HttpClientModule,
     MatInputModule,
     FormsModule,
     BrowserAnimationsModule,
     MatRippleModule, 
     MatDatepickerModule,
     MatNativeDateModule,
+    StringPipesModule,
     MatButtonModule, MatCheckboxModule
     
   ],

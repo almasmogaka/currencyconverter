@@ -8,14 +8,19 @@
         <tr>
             <td>
                     <label class="td-text" for="from">Currency I Have:</label>
-                <select class="form-control" id="fromCurrency" [(ngModel)]="fromCurrency" (ngModelChange)="calculate(false, false)">
-                    <option *ngFor="let quote of quotes" [value]="quote.id">{{ quote.id }}</option>
+                <select class="form-control" id="fromCurrency" [(ngModel)]="fromCurrency" (ngModelChange)="calculate()">
+                    <option *ngFor="let quote of quotes" [value]="quote.id">{{ quote.id | ltrim: 'USD' }}</option>
                 </select>
             </td>
             <td>
                     <label class="td-text" for="to">Currency I Want: </label>
-                <select class="form-control" id="toCurrency" [(ngModel)]="toCurrency " (ngModelChange)="calculate(true)">
-                    <option *ngFor="let quote of quotes" [value]="quote.id">{{ quote.id }}</option>
+                    <select class="form-control" id="toCurrency" [(ngModel)]="toCurrency " (ngModelChange)="calculate()">                   
+                    <optgroup >
+                        <option *ngFor="let quote of quotes" [value]="quote.id"><span>{{quote.id | ltrim: 'USD' }}</span></option>                                              
+                    </optgroup>        
+                    <!-- <optgroup class="right-curr">
+                        <option dir="ltr" *ngFor="let curr of currencies;let quote of quotes" [value]="curr.id">{{curr.value}}</option> 
+                    </optgroup>                         -->
                 </select>
             </td>
         </tr>      
@@ -23,11 +28,11 @@
 
             <td>
                     <label for="from">Amount:</label>
-                <input class="form-control" id="from-amount" type="number" [(ngModel)]="fromAmount" (ngModelChange)='calculate(false)'>
+                <input class="form-control" id="from-amount" type="number" [(ngModel)]="fromAmount" (ngModelChange)='calculate()'>
             </td>
             <td>
                     <label for="to">Converted Amount: </label>
-                <input class="form-control" id="to-amount" type="text" [(ngModel)]="toAmount" (ngModelChange)="calculate(true)" disabled>
+                <input class="form-control" id="to-amount" type="text" [(ngModel)]="toAmount " (ngModelChange)="calculate()" disabled>
             </td>
 
         </tr>
@@ -36,12 +41,17 @@
             <td class="ang-date">
                     <label for="date">Date:</label>
                 <mat-form-field>
-                    <input matInput class="inputdate" [matDatepicker]="picker" [(ngModel)]="planModel.start_time" placeholder="Choose date" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)">
+                    <input matInput class="inputdate" [matDatepicker]="picker" [(ngModel)]="planModel.start_time" placeholder="Choose date" (dateChange)="addEvent($event)">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
             </td>
         </tr>
-    </table>  
+    </table>    
+<div>
     
+</div>   
+
 </div>
+
+
