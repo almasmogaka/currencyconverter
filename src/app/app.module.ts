@@ -12,13 +12,14 @@ import { MatRippleModule, MatDatepickerModule, MatNativeDateModule } from '@angu
 
 import { AppComponent } from './app.component';
 import { DataService } from './data.service';
+import { CharstrimPipe } from './charstrim.pipe';
 
 @NgModule({
-  declarations: [
-    AppComponent
+  declarations: [       
+    AppComponent, CharstrimPipe
   ],
   imports: [
-    BrowserModule,
+    BrowserModule,    
     MatFormFieldModule,
     HttpClientModule,
     MatInputModule,
@@ -28,8 +29,7 @@ import { DataService } from './data.service';
     MatDatepickerModule,
     MatNativeDateModule,
     StringPipesModule,
-    MatButtonModule, MatCheckboxModule
-    
+    MatButtonModule, MatCheckboxModule    
   ],
   providers: [DataService],
   bootstrap: [AppComponent]
